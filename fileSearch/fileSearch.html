@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset=UTF-8>
+    <title>File Search</title>
+  </head>
+  <body>
+    <h2>File Search</h2>
+    <label for="author">Author</label>
+         <input type="text" id="author" name="author">
+         <label for="attribution">Attribution</label>
+         <input type="text" id="attribution" name="attribution">
+         <label for="license">License</label>
+         <input type="text" id="license" name="license">
+         <label for="propClass">Proprietary Classification</label>
+         <br>
+         <select name="proprietary_classification" id="propClass">
+            <option value="P">Public</option>
+            <option value="I">Internal</option>
+            <option value="C">Confidential</option>
+            <option value="R">Restricted</option>
+            <option value="">No Classification</option>
+         </select>
+         <br>
+         <label for="dataClass">Data Classification Policies</label>
+         <input type="text" id="dataClass" name="dataClassification">
+         <label for="govClass">Government Classification</label>
+         <br>
+         <select name="government_classification" id="govClass">
+            <option value="TS">Top Secret</option>
+            <option value="S">Secret</option>
+            <option value="C">Confidential</option>
+            <option value="SU">Sensitive Unclassified</option>
+            <option value="U">Unclassified</option>
+            <option value="">No Classification</option>
+         </select>
+         <br>
+         <label for="role">Role</label>
+         <input type="text" id="role" name="role">
+         <label for="docVersion">Version</label>
+         <input type="text" id="docVersion" name="docVersion">
+         <label for="date">Document Date</label>
+         <input type="text" id="date" name="date">
+         <label for="extGov">External Governance</label>
+         <input type="text" id="extGov" name="extGov">
+         <label for="docTitle">Title String</label>
+         <input type="text" id="docTitle" name="docTitle">
+         <br><input type="button" value="Submit" id="submit">
+         File Data: <span id="result"></span>
+  </body>
+  <script src="../background/authorize.js"></script>
+  <script src="fileSearch.js"></script>
+</html>
