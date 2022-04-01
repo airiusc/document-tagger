@@ -54,11 +54,13 @@ function setResult(data){
 
     const files = data.files;
     
-    let result = "";
+    var result = "";
     files.forEach(file=> {
         result += `Name: ${file.name} ID: ${file.id}\n`
     });
 
+    popupURL = browser.extension.getURL("fileSearch/results.html");
     result = result.slice(0, -1)
+    
     document.getElementById("result").innerHTML = result;
 }

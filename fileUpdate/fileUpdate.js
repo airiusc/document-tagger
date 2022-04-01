@@ -20,7 +20,8 @@ async function updateDoc(accessToken) {
     // create the properties json
     let properties = {};
     ids.forEach(item => {
-      value = document.getElementById(item).value;;
+      console.log(item);
+      value = document.getElementById(item).value;
       if (value != ""){
         properties[item] = value;
       }
@@ -37,6 +38,19 @@ async function updateDoc(accessToken) {
     })
     .then(res => {
       console.log(res);
-      console.log(res.json())
+      if (res.status==200){
+        browser.notifications.create({
+          "type": "basic",
+          "title": "Document Updated",
+          "message": `Your document was successfully updated!`
+        });
+      }
+      else {
+        browser.notifications.create({
+          "type": "basic",
+          "title": "Your Document Failed to Update",
+          "message": `${res.status}: ${res.statusText}`
+        });
+      }
     })
   }

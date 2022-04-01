@@ -7,7 +7,7 @@ function LoadUploadWindow(){
 
     var creating = browser.windows.create({
         url: popupURL,
-        type: "popup",
+        type: "normal",
         height: 600,
         width: 600
     });

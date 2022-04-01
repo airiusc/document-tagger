@@ -29,7 +29,6 @@ function GenerateFileName() {
 
     // Remove the trailing delimiter and replace spaces with underscores
     final_string = final_string.slice(0, -1).replaceAll(" ", "_");
-    document.getElementById("result").innerHTML = final_string;
 
     return final_string;
     
@@ -52,11 +51,7 @@ function UploadFile(ACCESS_TOKEN) {
         }
     });
 
-    const file = document.getElementById("file").files[0];
-
-
-    console.log(typeof file);
-    console.log(file.text());
+    const file = document.getElementById("choose-file").files[0];
 
     const fr = new FileReader();
     fr.readAsArrayBuffer(file);
@@ -72,6 +67,24 @@ function UploadFile(ACCESS_TOKEN) {
         method: 'POST',
         headers: new Headers({'Authorization': 'Bearer ' + ACCESS_TOKEN}),
         body: form
-    }).then(res => res.json()).then(res => console.log(res));
+    }).then(res => res.json()).then(res => {
+         console.log(res);
+         if (res.id !== null){
+            browser.notifications.create({
+              "type": "basic",
+              "title": "Document Uploaded",
+              "message": `Your document was successfully uploaded with the name: ${res.name}!\nAccess it by clicking here.`
+            });
+
+            window.open(`https://docs.google.com/document/d/${res.id}/`);
+          }
+          else {
+            browser.notifications.create({
+              "type": "basic",
+              "title": "Your Document Failed to Update",
+              "message": `${res.status}: ${res.statusText}`
+            });
+            }
+        });
     };
 }

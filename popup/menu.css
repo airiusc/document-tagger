@@ -1,0 +1,30 @@
+#popUpDiv
+{
+    /* position: absolute; */
+    background-color: #ffffff;
+    width: 250px;
+    height: 225px;
+    /* z-index: 9002; */
+}
+
+h1 {
+    text-align:center;
+    font-weight: bold;
+}
+
+button  {
+    transition-duration: 0.4s;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 4px 2px;
+    width: 150px;
+    display:inline-block;       
+    margin:0 auto;
+  }
+  
+button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
