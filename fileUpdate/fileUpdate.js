@@ -1,8 +1,16 @@
-
 document.getElementById("submit").addEventListener(
-    "click", async () =>  getAccessToken().then(updateDoc));
+    "click", async () =>  GetToken());
 
-async function updateDoc(accessToken) {
+/**
+ * Get the authorization token for the user.
+ */
+function GetToken() {
+  chrome.identity.getAuthToken({interactive: true,scopes:["https://www.googleapis.com/auth/drive"]}, function(token) {
+      UpdateDoc(token);
+  })     
+}
+
+async function UpdateDoc(accessToken) {
     const API_KEY = await fetch("../credentials.json")
     .then(response => {
         return response.json();
@@ -12,7 +20,7 @@ async function updateDoc(accessToken) {
         return apiKey;
     });
     const url =  document.getElementById("file_id").value;
-    fileID = url.slice(url.indexOf("/d/")+3,url.indexOf("/edit"));
+    fileID = url.slice(url.indexOf("/d/") + 3, url.indexOf("/edit"));
     console.log(fileID)
     const ids = ["author", "attribution", "license", "propClass", "dataClass", "govClass",
     "role", "docVersion", "date", "extGov", "docTitle"];
@@ -37,19 +45,23 @@ async function updateDoc(accessToken) {
         body: JSON.stringify(fileMetadata)
     })
     .then(res => {
-      console.log(res);
+      const airius_id = '../icons/placeholder.png';
       if (res.status==200){
-        browser.notifications.create({
-          "type": "basic",
-          "title": "Document Updated",
-          "message": `Your document was successfully updated!`
+        chrome.notifications.create('UpdateSuccess', {
+          type: 'basic',
+          iconUrl: airius_id,
+          title: 'Update Successful',
+          message: "Your document's metadata was updated",
+          priority: 2
         });
       }
       else {
-        browser.notifications.create({
-          "type": "basic",
-          "title": "Your Document Failed to Update",
-          "message": `${res.status}: ${res.statusText}`
+        chrome.notifications.create('UpdateFailure', {
+          type: 'basic',
+          iconUrl: airius_id,
+          title: 'Your Document Failed to Update',
+          message: `${res.status}: ${res.statusText}`,
+          priority: 2
         });
       }
     })

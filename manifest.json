@@ -2,19 +2,13 @@
 
   "name": "Airius Webextension",
   "version": "1",
-  "manifest_version": 2,
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "airius-webextension@mozilla.org",
-      "strict_min_version": "53a1"
-    }
-  },
+  "manifest_version": 3,
 
   "icons": {
     "48": "icons/placeholder.png"
   },
 
-  "browser_action": {
+  "action": {
     "browser_style": true,
     "default_icon": "icons/placeholder.png",
     "default_popup": "popup/menu.html"
@@ -22,14 +16,21 @@
 
   "permissions": [
     "identity",
-    "notifications",
+    "notifications"
+  ],
+
+  "host_permissions": [
     "*://www.googleapis.com/*",
     "*://accounts.google.com/*"
   ],
 
-  "background": {
+  "background.service_worker": {
     "scripts": [
       "background/authorize.js"
     ]
+  },
+  "oauth2": {
+    "client_id": "618839931891-itetlk3qta1ret4dp7pto4hcakgfal7c.apps.googleusercontent.com",
+    "scopes":["https://www.googleapis.com/auth/drive"]
   }
 }
